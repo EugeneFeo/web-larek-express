@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import mongoose from 'mongoose';
 
 interface AppError extends Error {
-  code?: number;
+  statusCode?: number;
   status?: number;
 }
 
@@ -12,23 +11,13 @@ const errorHandler = (
   res: Response,
   _next: NextFunction,
 ) => {
-  if (error.code === 11000) {
-    res.status(409).send({
-      message: 'Товар с таким названием уже существует',
-    });
-    return;
-  }
+  const statusCode = error.statusCode || error.status || 500;
 
-  if (
-    error instanceof mongoose.Error.ValidationError
-    || error instanceof mongoose.Error.CastError
-    || error.status === 400
-  ) {
-    res.status(400).send({ message: 'Переданы некорректные данные' });
-    return;
-  }
+  const message = statusCode >= 500
+    ? 'Ошибка сервера'
+    : error.message;
 
-  res.status(500).send({ message: 'Ошибка сервера' });
+  res.status(statusCode).send({ message });
 };
 
 export default errorHandler;
