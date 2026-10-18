@@ -69,7 +69,7 @@ mongoimport --uri="mongodb://127.0.0.1:27017/weblarek" --collection=products --f
 
 Для этой команды необходим установленный MongoDB Database Tools. Импорт выполняется один раз.
 
-Изображения находятся в папке public/images и доступны по адресу /images/имя-файла.
+Изображения находятся в папке src/public/images и доступны по адресу /images/имя-файла.
 
 ## Маршруты
 

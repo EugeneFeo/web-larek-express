@@ -17,7 +17,7 @@ app.use(requestLogger);
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.resolve(__dirname, '../public')));
+app.use(express.static(path.resolve(__dirname, '../src/public')));
 
 app.use('/product', productsRouter);
 app.use('/order', ordersRouter);
